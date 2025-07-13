@@ -1,14 +1,27 @@
-
----
-
-## ✅ Final Step: Add `.gitattributes` (Important)
-
-To make sure GitHub shows Dart as the **main language**, create a file in the **root** of your project named `.gitattributes` and add:
-
-```gitattributes
+# Tell GitHub Linguist to treat .dart files as primary source
 *.dart linguist-language=Dart
+
+# Mark common Flutter generated/build/native code as not important
+*.gradle linguist-generated
+*.java linguist-generated
+*.kt linguist-generated
+*.xml linguist-generated
+*.cpp linguist-generated
+*.h linguist-generated
+*.c linguist-generated
+*.cc linguist-generated
+*.cmake linguist-generated
+*.pb linguist-generated
+
+# Ignore assets and docs from language stats
+assets/** linguist-vendored
+ios/** linguist-vendored
+android/** linguist-vendored
+web/** linguist-vendored
+build/** linguist-vendored
+test/** linguist-vendored
 *.md linguist-documentation
 *.yaml linguist-documentation
 *.yml linguist-documentation
 *.json linguist-documentation
-assets/** linguist-vendored
+*.lock linguist-generated
