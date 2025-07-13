@@ -1,11 +1,4 @@
-
----
-
-## ✅ Final Step: Add `.gitattributes` (Important)
-
-
-
-```gitattributes
+gitattributes
 *.dart linguist-language=Dart
 *.md linguist-documentation
 *.yaml linguist-documentation
