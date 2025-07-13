@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:inspire_me/views/favourite_screen.dart';
 import '../controllers/quote_controller.dart';
 import '../themes/theme_controller.dart';
@@ -9,7 +9,6 @@ import 'package:share_plus/share_plus.dart';
 class HomeScreen extends StatelessWidget {
   final QuoteController quoteController = Get.put(QuoteController());
   final ThemeController themeController = Get.put(ThemeController());
-  final player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +17,15 @@ class HomeScreen extends StatelessWidget {
         title: const Text("InspireMe"),
         actions: [
           IconButton(
-              icon: const Icon(Icons.favorite),
-              onPressed: () {
-                Get.to(() => FavoritesScreen());
-              }),
+            icon: const Icon(Icons.favorite),
+            onPressed: () => Get.to(() => FavoritesScreen()),
+          ),
           IconButton(
-              icon: const Icon(Icons.share),
-              onPressed: () {
-                Share.share(quoteController.currentQuote.value.text);
-              }),
+            icon: const Icon(Icons.share),
+            onPressed: () {
+              Share.share(quoteController.currentQuote.value.text);
+            },
+          ),
           IconButton(
             icon: Obx(() => Icon(themeController.isDark.value
                 ? Icons.sunny
@@ -78,7 +77,7 @@ class HomeScreen extends StatelessWidget {
         icon: const Icon(Icons.auto_awesome),
         onPressed: () {
           quoteController.getNewQuote();
-          player.play(AssetSource("chime.mp3")); // Place this file in assets
+          SystemSound.play(SystemSoundType.click); // 🔊 Built-in sound
         },
       ),
     );
