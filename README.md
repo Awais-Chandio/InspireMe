@@ -1,16 +1,70 @@
-# inspire_me
+# 🌟 InspireMe – Daily Motivation App
 
-A new Flutter project.
+InspireMe is a beautifully designed Flutter application that delivers motivational quotes with animations, theme switching, sound effects, and favorite quote management. It's built using **Flutter** and **GetX** for clean state management and reactive UI.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🎯 Features
 
-A few resources to get you started if this is your first Flutter project:
+✅ **Random Quotes**  
+✅ **Beautiful Day & Night Theme Switcher**  
+✅ **Favorite Quotes** (with heart icon toggle)  
+✅ **Local Persistence using SharedPreferences**  
+✅ **Quote Sharing** (via share_plus)  
+✅ **Smooth Quote Transition Animation**  
+✅ **Sound Chime on Button Press**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🖥️ Screens
+
+### 🏠 Home Screen
+- Displays a beautifully styled motivational quote
+- “Inspire Me” button fetches a new random quote
+- Heart icon toggles favorite state
+- Quote share button
+- Day/Night theme toggle
+- Subtle animation and chime sound
+
+### ❤️ Favorites Screen
+- Shows list of all favorited quotes
+- Delete quotes from favorites
+
+---
+
+## 🛠️ Tech Stack
+
+- **Flutter**
+- **GetX** for state management
+- **SharedPreferences** for local storage
+- **audioplayers** for sound effects
+- **share_plus** for quote sharing
+
+---
+
+## 📦 Packages Used
+
+```yaml
+get: ^4.6.5
+shared_preferences: ^2.2.0
+audioplayers: ^5.2.1
+share_plus: ^7.2.1
+
+Folder Structure
+lib/
+├── main.dart
+├── controllers/
+│   └── quote_controller.dart
+├── models/
+│   └── quote_model.dart
+├── views/
+│   ├── home_screen.dart
+│   └── favorites_screen.dart
+├── themes/
+│   └── theme_controller.dart
+├── data/
+│   └── quotes.dart
+
+How to run
+git clone https://github.com/your-username/inspireme-app.git
+cd inspireme-app
