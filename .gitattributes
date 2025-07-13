@@ -1,4 +1,4 @@
-# Ignore platform-specific native code and build files
+# Ignore native and generated files from language stats
 android/** linguist-vendored
 ios/** linguist-vendored
 macos/** linguist-vendored
@@ -7,19 +7,20 @@ linux/** linguist-vendored
 web/** linguist-vendored
 build/** linguist-vendored
 
-# Ignore CMake and related config
+# Ignore non-Dart file types
+*.cpp linguist-vendored
+*.h linguist-vendored
+*.cc linguist-vendored
+*.c linguist-vendored
 *.cmake linguist-vendored
 CMakeLists.txt linguist-vendored
-
-# Ignore non-Dart configs
 *.gradle linguist-vendored
 *.xml linguist-vendored
-*.json linguist-vendored
-*.lock linguist-vendored
-*.html linguist-vendored
 *.js linguist-vendored
+*.json linguist-vendored
+*.html linguist-vendored
 *.yml linguist-vendored
 *.md linguist-documentation
 
-# Explicitly mark Dart folder as the main language
+# Force Dart as the main language
 lib/** linguist-language=Dart
