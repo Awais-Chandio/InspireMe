@@ -6,13 +6,13 @@ InspireMe is a beautifully designed Flutter application that delivers motivation
 
 ## 🎯 Features
 
-✅ **Random Quotes**  
-✅ **Beautiful Day & Night Theme Switcher**  
-✅ **Favorite Quotes** (with heart icon toggle)  
-✅ **Local Persistence using SharedPreferences**  
-✅ **Quote Sharing** (via share_plus)  
-✅ **Smooth Quote Transition Animation**  
-✅ **Sound Chime on Button Press**
+✅ Random Quotes
+✅ Beautiful Day & Night Theme Switcher  
+✅ Favorite Quotes (with heart icon toggle)  
+✅ Local Persistence using SharedPreferences  
+✅ Quote Sharing (via share_plus)  
+✅ Smooth Quote Transition Animation  
+✅ Sound Chime on Button Press
 
 ---
 
@@ -34,7 +34,7 @@ InspireMe is a beautifully designed Flutter application that delivers motivation
 
 ## 🛠️ Tech Stack
 
-- **Flutter**
+- **Flutter
 - **GetX** for state management
 - **SharedPreferences** for local storage
 - **audioplayers** for sound effects
@@ -44,7 +44,6 @@ InspireMe is a beautifully designed Flutter application that delivers motivation
 
 ## 📦 Packages Used
 
-```yaml
 get: ^4.6.5
 shared_preferences: ^2.2.0
 audioplayers: ^5.2.1
