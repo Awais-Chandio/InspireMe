@@ -1,8 +1,14 @@
+
+---
+
+## ✅ Final Step: Add `.gitattributes` (Important)
+
+To make sure GitHub shows Dart as the **main language**, create a file in the **root** of your project named `.gitattributes` and add:
+
+```gitattributes
 *.dart linguist-language=Dart
-*.html linguist-documentation
 *.md linguist-documentation
 *.yaml linguist-documentation
 *.yml linguist-documentation
 *.json linguist-documentation
-*.lock linguist-generated
 assets/** linguist-vendored
