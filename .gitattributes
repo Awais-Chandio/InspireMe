@@ -1,26 +1,20 @@
-# Ignore native and generated files from language stats
+# Mark native build folders as vendored (ignored in stats)
 android/** linguist-vendored
 ios/** linguist-vendored
 macos/** linguist-vendored
 windows/** linguist-vendored
 linux/** linguist-vendored
-web/** linguist-vendored
 build/** linguist-vendored
 
-# Ignore non-Dart file types
-*.cpp linguist-vendored
-*.h linguist-vendored
-*.cc linguist-vendored
-*.c linguist-vendored
+# Don't mark everything else as vendored, just platform code
 *.cmake linguist-vendored
 CMakeLists.txt linguist-vendored
-*.gradle linguist-vendored
-*.xml linguist-vendored
-*.js linguist-vendored
-*.json linguist-vendored
-*.html linguist-vendored
-*.yml linguist-vendored
+*.cpp linguist-vendored
+*.cc linguist-vendored
+*.h linguist-vendored
+
+# Keep .html, .json, .yml, .md in stats if you want to reflect usage
 *.md linguist-documentation
 
-# Force Dart as the main language
+# Explicitly say Dart is the language of lib/
 lib/** linguist-language=Dart
