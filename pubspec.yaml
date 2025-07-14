@@ -41,12 +41,7 @@ dependencies:
   firebase_auth: ^5.6.2
   cloud_firestore: ^5.6.11
   lottie: ^3.3.1
-  flutter_launcher_icons: ^0.14.4 
- 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/inspire.png"
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
