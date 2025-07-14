@@ -1,40 +1,102 @@
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import '../controllers/quote_controller.dart';
+
+// class FavoritesScreen extends StatelessWidget {
+//   final QuoteController quoteController = Get.find<QuoteController>();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text("Your Favorites")),
+//       body: Obx(() {
+//         final favs = quoteController.favorites;
+//         if (favs.isEmpty) {
+//           return const Center(child: Text("No favorite quotes yet."));
+//         }
+//         return ListView.builder(
+//           itemCount: favs.length,
+//           itemBuilder: (context, index) {
+//             final quote = favs[index];
+//             return ListTile(
+//               leading: const Icon(Icons.format_quote),
+//               title: Text('"${quote.text}"'),
+//               subtitle: Text("- ${quote.author}"),
+//               trailing: IconButton(
+//                 icon: const Icon(Icons.delete_outline),
+//                 onPressed: () {
+//                   quoteController.toggleFavorite(quote);
+//                 },
+//               ),
+//             );
+//           },
+//         );
+//       }),
+//     );
+//   }
+// }
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controllers/quote_controller.dart';
-import '../models/quote_model.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  final QuoteController quoteController = Get.find();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    final user = _auth.currentUser;
+
+    if (user == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text("Favorites")),
+        body: const Center(child: Text("Please log in to view favorites.")),
+      );
+    }
+
+    final favsRef = _firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('favorites');
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Favorite Quotes")),
-      body: Obx(() {
-        if (quoteController.favorites.isEmpty) {
-          return const Center(child: Text("No favorites yet!"));
-        }
-        return ListView.builder(
-          itemCount: quoteController.favorites.length,
-          itemBuilder: (context, index) {
-            Quote quote = quoteController.favorites[index];
-            return Card(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListTile(
-                title: Text('"${quote.text}"',
-                    style: Theme.of(context).textTheme.bodyLarge),
-                subtitle: Text("- ${quote.author}"),
+      appBar: AppBar(title: const Text("Your Favorites")),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: favsRef.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final docs = snapshot.data?.docs ?? [];
+
+          if (docs.isEmpty) {
+            return const Center(child: Text("No favorite quotes yet."));
+          }
+
+          return ListView.builder(
+            itemCount: docs.length,
+            itemBuilder: (context, index) {
+              final data = docs[index].data() as Map<String, dynamic>;
+              final text = data['text'] ?? '';
+              final author = data['author'] ?? '';
+
+              return ListTile(
+                leading: const Icon(Icons.format_quote),
+                title: Text('"$text"'),
+                subtitle: Text("- $author"),
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () {
-                    quoteController.toggleFavorite(quote);
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: () async {
+                    await favsRef.doc(text).delete();
                   },
                 ),
-              ),
-            );
-          },
-        );
-      }),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

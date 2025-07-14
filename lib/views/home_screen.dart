@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:inspire_me/views/favourite_screen.dart';
+import 'package:share_plus/share_plus.dart';
 import '../controllers/quote_controller.dart';
 import '../themes/theme_controller.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
-  final QuoteController quoteController = Get.put(QuoteController());
-  final ThemeController themeController = Get.put(ThemeController());
+  final QuoteController quoteController = Get.find<QuoteController>();
+  final ThemeController themeController = Get.find<ThemeController>();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,13 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.favorite),
-            onPressed: () => Get.to(() => FavoritesScreen()),
+            onPressed: () {
+              if (user != null) {
+                Get.to(() => FavoritesScreen());
+              } else {
+                Get.snackbar("Login Required", "Please login to view favorites");
+              }
+            },
           ),
           IconButton(
             icon: const Icon(Icons.share),
@@ -63,7 +71,12 @@ class HomeScreen extends StatelessWidget {
                       size: 32,
                     ),
                     onPressed: () {
-                      quoteController.toggleFavorite(quote);
+                      if (user != null) {
+                        quoteController.toggleFavorite(quote);
+                      } else {
+                        Get.snackbar("Login Required",
+                            "Please login to save favorites");
+                      }
                     },
                   ),
                 ],
@@ -77,7 +90,7 @@ class HomeScreen extends StatelessWidget {
         icon: const Icon(Icons.auto_awesome),
         onPressed: () {
           quoteController.getNewQuote();
-          SystemSound.play(SystemSoundType.click); // 🔊 Built-in sound
+          SystemSound.play(SystemSoundType.click);
         },
       ),
     );
